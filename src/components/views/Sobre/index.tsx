@@ -11,7 +11,7 @@ export default function SobreView() {
   return (
     <>
       <InfoPrincipal />
-      <Local />
+      {/* <Local /> */}
       <Presentear />
       <InfoPIX />
       <Duvidas />

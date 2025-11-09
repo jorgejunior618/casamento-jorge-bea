@@ -8,7 +8,7 @@ export default function InfoPrincipal() {
 
         <span>Chá de casa nova</span>
 
-        <section className={styles.data}>
+        {/* <section className={styles.data}>
           <span>23/01/2026</span>
 
           <div className={styles.contagem}>
@@ -21,7 +21,7 @@ export default function InfoPrincipal() {
               <span>dias</span>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </section>
   );
