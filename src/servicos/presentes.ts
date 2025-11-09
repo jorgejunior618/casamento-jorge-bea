@@ -3,6 +3,8 @@
 import { PresenteType } from "@/types/presente";
 import {
   collection,
+  query,
+  where,
   doc,
   getDocs,
   getDoc,
@@ -18,14 +20,18 @@ interface ResponseType<T> {
   erro?: unknown;
 }
 
-export const listarPresentes = async (): Promise<
-  ResponseType<PresenteType[] | string>
-> => {
+export const listarPresentes = async (
+  apenasDisponiveis: boolean = true
+): Promise<ResponseType<PresenteType[] | string>> => {
   try {
     const presentesRef = collection(db, "presentes");
-    const presentesSnapshot = await getDocs(presentesRef);
-    const presentes: PresenteType[] = [];
+    let presentesQuery = query(presentesRef);
+    if (apenasDisponiveis) {
+      presentesQuery = query(presentesRef, where("confirmado", "==", false));
+    }
+    const presentesSnapshot = await getDocs(presentesQuery);
 
+    const presentes: PresenteType[] = [];
     presentesSnapshot.forEach((doc) => {
       presentes.push({
         id: doc.id,
@@ -101,7 +107,7 @@ export const cadastrarPresente = async (form: Omit<PresenteType, "id">) => {
 };
 
 export const editarPresente = async (params: {
-  presente?: PresenteType;
+  presente?: Partial<PresenteType>;
   presenteID: string;
 }) => {
   const { presente, presenteID } = params;
@@ -109,7 +115,7 @@ export const editarPresente = async (params: {
   try {
     const presenteDocRef = doc(db, "presentes", presenteID);
 
-    await updateDoc(presenteDocRef, { ...presente }); // O 'presente' aqui deve conter os campos a serem atualizados
+    await updateDoc(presenteDocRef, { ...presente });
 
     return {
       success: true,

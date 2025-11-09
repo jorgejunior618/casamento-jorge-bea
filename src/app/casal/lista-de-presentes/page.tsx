@@ -3,12 +3,13 @@ import ViewListaPresentes from "@/components/views/ListaPresentes";
 
 import { listarPresentes } from "@/servicos/presentes";
 import { PresenteType } from "@/types/presente";
+import { revalidatePath } from "next/cache";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 const atualizarListaPresentes = async () => {
-  const resp = await listarPresentes();
+  const resp = await listarPresentes(false);
 
   if (!resp.success) {
     return [];
@@ -18,9 +19,19 @@ const atualizarListaPresentes = async () => {
 
 export default async function ListaPresentes() {
   const listaPresentes = await atualizarListaPresentes();
+
+  const atualizarLista = async () => {
+    "use server";
+    revalidatePath("/lista-de-presentes");
+  };
+
   return (
     <>
-      <ViewListaPresentes estaLogado listaPresentes={listaPresentes} />
+      <ViewListaPresentes
+        estaLogado
+        listaPresentes={listaPresentes}
+        atualizarLista={atualizarLista}
+      />
       <BotaoSuspenso>Adicionar</BotaoSuspenso>
     </>
   );

@@ -10,58 +10,80 @@ import { useState } from "react";
 import ModalConfirmacao from "@/components/ModalConfirmarcao";
 import Listagem from "./Listagem";
 import { PresenteType } from "@/types/presente";
+import { editarPresente } from "@/servicos/presentes";
+import ModalSucesso from "@/components/ModalSucesso";
+import ModalErro from "@/components/ModalErro";
 
 interface ViewListaPresentesProps {
   listaPresentes: PresenteType[];
+  atualizarLista: () => void;
   estaLogado?: boolean;
 }
 interface DadosModal {
   aberto: boolean;
+  loading: boolean;
   presenteID: string;
   comprador: string;
 }
 export default function ViewListaPresentes({
   listaPresentes,
+  atualizarLista,
   estaLogado = false,
 }: ViewListaPresentesProps) {
   const redirecionador = useRouter();
   const [dadosModal, setDadosModal] = useState<DadosModal>({
     aberto: false,
+    loading: false,
     presenteID: "",
     comprador: "",
   });
   const [modalConfirmacaoAberto, setConfirmacaoAberto] =
     useState<boolean>(false);
+  const [modalSucessoAberto, setModalSucesso] = useState<boolean>(false);
+  const [modalErroAberto, setModalErro] = useState<boolean>(false);
 
   const abrirModalConfirmacao = (presenteID: string) => {
-    setDadosModal({ aberto: true, presenteID, comprador: "" });
+    setDadosModal({ aberto: true, loading: false, presenteID, comprador: "" });
   };
 
   const perguntarConfirmacao = (presenteID: string, comprador: string) => {
-    setDadosModal({ aberto: true, presenteID, comprador });
+    setDadosModal({ aberto: true, loading: true, presenteID, comprador });
     setConfirmacaoAberto(true);
   };
-  const confirmarConfirmacao = () => {
-    const presenteSelecionado = listaPresentes.findIndex(
-      (pres) => pres.id === dadosModal.presenteID
-    );
-
-    if (presenteSelecionado === -1)
-      return alert("Ocorreu um erro, tente novamente mais tarde");
-
-    [...listaPresentes][presenteSelecionado] = {
-      ...listaPresentes[presenteSelecionado],
-      confirmado: true,
-      comprador: dadosModal.comprador,
-    };
-    setDadosModal({ aberto: false, presenteID: "", comprador: "" });
+  const confirmarConfirmacao = async () => {
     setConfirmacaoAberto(false);
+    const resp = await editarPresente({
+      presenteID: dadosModal.presenteID,
+      presente: { comprador: dadosModal.comprador, confirmado: true },
+    });
+
+    if (resp.success) {
+      setDadosModal({
+        aberto: false,
+        loading: false,
+        presenteID: "",
+        comprador: "",
+      });
+      setModalSucesso(true);
+      atualizarLista();
+      return setTimeout(() => setModalSucesso(false), 3000);
+    } else {
+      setModalErro(true);
+
+      return setTimeout(() => setModalErro(false), 7000);
+    }
   };
   const cancelarConfirmacao = () => {
-    setDadosModal({ aberto: false, presenteID: "", comprador: "" });
+    setDadosModal({
+      aberto: false,
+      loading: false,
+      presenteID: "",
+      comprador: "",
+    });
   };
   const voltarConfirmacao = () => {
     setConfirmacaoAberto(false);
+    setDadosModal((prev) => ({ ...prev, loading: false }));
   };
 
   const redirecionarHome = () => {
@@ -94,6 +116,8 @@ export default function ViewListaPresentes({
         confirmar={confirmarConfirmacao}
         cancelar={voltarConfirmacao}
       />
+      <ModalSucesso aberto={modalSucessoAberto} />
+      <ModalErro aberto={modalErroAberto} />
     </main>
   );
 }

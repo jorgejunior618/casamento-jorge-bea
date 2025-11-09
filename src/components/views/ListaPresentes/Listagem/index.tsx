@@ -16,16 +16,14 @@ export default function Listagem({
 }: ListagemProps) {
   return (
     <ul className={styles.ListaPresentes}>
-      {listaPresentes
-        .filter((presente) => (estaLogado ? true : !presente.confirmado))
-        .map((presente, idx) => (
-          <ItemPresente
-            key={idx}
-            presente={presente}
-            estaLogado={estaLogado}
-            adicionarComprador={abrirModalConfirmacao}
-          />
-        ))}
+      {listaPresentes.map((presente, idx) => (
+        <ItemPresente
+          key={idx}
+          presente={presente}
+          estaLogado={estaLogado}
+          adicionarComprador={abrirModalConfirmacao}
+        />
+      ))}
     </ul>
   );
 }
