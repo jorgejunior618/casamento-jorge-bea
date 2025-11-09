@@ -7,9 +7,10 @@ import styles from "./styles.module.scss";
 import Image from "next/image";
 import LinkButton from "@/components/LinkButton";
 import { PresenteType } from "@/types/presente";
+import { cadastrarPresente, editarPresente } from "@/servicos/presentes";
 
 interface FormPresenteProps {
-  presente: PresenteType;
+  presente?: PresenteType;
 }
 
 export default function FormPresente({ presente }: FormPresenteProps) {
@@ -19,9 +20,31 @@ export default function FormPresente({ presente }: FormPresenteProps) {
     redirecionador.push("/casal/lista-de-presentes");
   };
 
-  const handleEditPresente: FormEventHandler<HTMLFormElement> = (event) => {
+  const handleEditPresente: FormEventHandler<HTMLFormElement> = async (
+    event
+  ) => {
     event.preventDefault();
-    console.log(event);
+    const inputs = Array.from(
+      (event.target as Document).getElementsByTagName("input")
+    );
+
+    const novoPresente: Partial<PresenteType> = {};
+
+    novoPresente.item = inputs[0].value;
+    novoPresente.imagem = inputs[1].value;
+    novoPresente.url = inputs[2].value;
+    novoPresente.confirmado =
+      inputs[3].value.toLowerCase() === "sim" ||
+      inputs[3].value.toLowerCase() === "s";
+    novoPresente.comprador =
+      inputs[4].value.length === 0 ? null : inputs[4].value;
+
+    if (presente) {
+      await editarPresente({ presente: novoPresente, presenteID: presente.id });
+    } else {
+      await cadastrarPresente(novoPresente as PresenteType);
+    }
+    redirecionarLista();
   };
 
   return (
@@ -84,6 +107,10 @@ export default function FormPresente({ presente }: FormPresenteProps) {
             type="text"
           />
         </div>
+
+        <LinkButton submit>
+          {presente ? "Atualizar" : "Adicionar à"} lista
+        </LinkButton>
       </form>
     </main>
   );

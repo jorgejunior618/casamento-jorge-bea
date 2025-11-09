@@ -17,8 +17,5 @@ export default async function Presente({ searchParams }: PageProps) {
   let presente = undefined;
   if (id) presente = await obterPresente(id as string);
 
-  return (
-    presente &&
-    typeof presente === "object" && <FormPresente presente={presente} />
-  );
+  return typeof presente !== "string" && <FormPresente presente={presente} />;
 }
