@@ -1,5 +1,5 @@
 import BotaoSuspenso from "@/components/BotaoSuspenso";
-import ViewListaPresentes from "@/views/ListaPresentes";
+import ViewListaPresentes from "@/components/views/ListaPresentes";
 
 export default function ListaPresentes() {
   return (

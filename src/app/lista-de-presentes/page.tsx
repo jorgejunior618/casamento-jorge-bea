@@ -1,5 +1,5 @@
 import Rodape from "@/components/Rodape";
-import ViewListaPresentes from "@/views/ListaPresentes";
+import ViewListaPresentes from "@/components/views/ListaPresentes";
 
 export default function ListaPresentes() {
   return (
