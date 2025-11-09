@@ -1,0 +1,51 @@
+.Local {
+  background-color: var(--cor-secundaria);
+  section {
+    display: flex;
+    height: 415px;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--foreground-sec);
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      h2 {
+        font-size: 56px;
+      }
+      span {
+        font-size: 32px;
+      }
+    }
+
+    img {
+      border-radius: 25px;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    section {
+      height: unset;
+      padding: 44px 0;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      gap: 50px;
+
+      div {
+        h2 {
+          font-size: 48px;
+        }
+        span {
+          font-size: 28px;
+        }
+      }
+
+      img {
+        width: 340px !important;
+        height: auto !important;
+      }
+    }
+  }
+}

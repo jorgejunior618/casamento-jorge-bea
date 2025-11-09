@@ -1,0 +1,145 @@
+.InfoPrincipal {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff url("../../assets/casal-pb.jpg") no-repeat right top
+    scroll;
+  background-size: 100%;
+
+  .informacoes {
+    width: 100vw;
+    height: 100vh;
+    background-color: #0005;
+    color: var(--foreground-sec);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    h1,
+    .tamTitulo {
+      // font-size: 64px !important;
+      font-size: 88px !important;
+    }
+    h1 {
+      padding-top: 100px;
+    }
+    span {
+      // font-size: 44px;
+      font-size: 64px;
+    }
+    .data {
+      margin-top: 45px;
+    }
+    .contagem {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 6px;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    background-size: auto 100%;
+    background-position: 37% 0;
+
+    .informacoes {
+      h1,
+      .tamTitulo {
+        font-size: 56px !important;
+      }
+      span {
+        font-size: 36px !important;
+      }
+    }
+  }
+}
+
+.Local {
+  background-color: var(--cor-secundaria);
+  section {
+    display: flex;
+    height: 415px;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--foreground-sec);
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      h2 {
+        font-size: 56px;
+      }
+      span {
+        font-size: 32px;
+      }
+    }
+
+    img {
+      border-radius: 25px;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    section {
+      height: unset;
+      padding: 44px 0;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      gap: 50px;
+
+      div {
+        h2 {
+          font-size: 48px;
+        }
+        span {
+          font-size: 28px;
+        }
+      }
+
+      img {
+        width: 340px !important;
+        height: auto !important;
+      }
+    }
+  }
+}
+
+.Presentear {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  gap: 50px;
+  h2 {
+    font-size: 48px;
+    font-weight: 400;
+  }
+  span {
+    padding: 14px 92px;
+    font-size: 28px;
+    font-weight: 400;
+  }
+  @media screen and (max-width: 500px) {
+    h2 {
+      font-size: 42px;
+    }
+    span {
+      padding: 14px 72px;
+    }
+  }
+}
