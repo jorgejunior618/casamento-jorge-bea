@@ -4,7 +4,9 @@ import { removerSessao, verificarSessao } from "@/utils/sessao";
 const rotasPublicas: string[] = [
   "/",
   "/lista-de-presentes",
-  "/lista-de-presentes/presentear",
+  "/sobre-o-casamento",
+  "/casal/lista-de-presentes",
+  "/casal/lista-de-presentes/presente",
 ];
 
 export async function proxy(req: NextRequest) {
