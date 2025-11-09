@@ -1,18 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Tiro+Kannada:ital@0;1&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #CCE8FE;
+  --background-sec: #60A7D3;
+  --background-ter: #EBEBEB;
+  --foreground: #1C4966;
+  --foreground-sec: #FFFFFF;
+
+  --cor-secundaria: #60A7D3;
+  --cor-terc: #62B6CB;
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -26,4 +34,66 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid var(--cor-secundaria);
+  border-radius: 10px;outline: none;
+}
+.sobre {
+  font-family: "Tiro Kannada", serif !important;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+.sobre * {
+  font-family: "Tiro Kannada", serif !important;
+}
+h1 {
+  font-family: "Tiro Kannada", serif;
+  font-size: 56px;
+  text-align: center;
+}
+.container {
+  width: 1048px;
+  margin: 0 auto;
+}
+.BotaoVoltar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.BotaoVoltar span {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.btnsModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin: 56px 0 30px;
+}
+@media only screen and (max-width: 1080px) {
+  .container {
+    width: 760px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .container {
+    width: 450px;
+    padding: 0 25px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  h1 {
+    font-size: 48px;
+    font-weight: 400;
+  }
+  .container {
+    width: 100%;
+    padding: 0 12px;
+  }
 }
