@@ -1,0 +1,44 @@
+.LinkButton {
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  padding: 8px 12px;
+  font-size: 18px;
+  border: none;
+  color: var(--foreground-sec);
+  transition: filter 0.4s;
+  font-weight: 800;
+  max-width: 100%;
+
+  &.primario {
+    background-color: var(--foreground);
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+  &.secundario {
+    background-color: var(--foreground-sec);
+    color: var(--foreground);
+    box-shadow: inset 0 0 0 2px var(--foreground);
+  }
+  &.cancelamento {
+    background-color: var(--background-ter);
+    color: var(--foreground);
+    font-weight: 400;
+  }
+  &.texto {
+    background-color: transparent;
+    color: var(--foreground);
+    font-weight: 800;
+    transition: background-color 0.4s;
+
+    &:hover {
+      background-color: #fff5;
+      filter: none;
+    }
+  }
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+}

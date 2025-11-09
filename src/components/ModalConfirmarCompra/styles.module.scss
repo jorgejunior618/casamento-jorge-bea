@@ -1,0 +1,17 @@
+.ConteudoModal {
+  width: 550px;
+  padding: 50px 18px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  color: var(--foreground);
+
+  .input {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    gap: 8px;
+  }
+}

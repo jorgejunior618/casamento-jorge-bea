@@ -1,0 +1,63 @@
+.ItemWrapper {
+  min-width: 333px;
+  width: 100%;
+  gap: 8px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px;
+  padding-bottom: 15px;
+  border-radius: 10px;
+  position: relative;
+
+  span {
+    display: flex;
+    flex-wrap: wrap;
+    // text-wrap: wrap;
+    align-items: start;
+    justify-content: center;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 8px;
+    width: 100%;
+    height: 60px;
+  }
+
+  &.comprado {
+    background-color: var(--cor-secundaria);
+  }
+
+  @media only screen and (max-width: 500px) {
+    min-width: none;
+    max-width: 333px;
+  }
+}
+
+.ImageStyled {
+  width: auto !important;
+  max-width: 100%;
+  max-height: 217px !important;
+  border-radius: 10px;
+}
+
+.EditItemBtn {
+  cursor: pointer;
+  display: flex;
+  position: absolute;
+  background-color: white;
+  top: 6px;
+  right: 6px;
+  border-radius: 12px;
+  padding: 6px;
+  transition: filter 0.4s;
+  box-shadow: 0 0 5px #a4a4a4;
+
+  img {
+    display: flex;
+  }
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+}

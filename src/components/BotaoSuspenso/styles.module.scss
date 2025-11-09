@@ -1,0 +1,17 @@
+.BotaoSuspenso {
+  position: absolute;
+  top: 150px;
+  right: 150px;
+  border: none;
+  background-color: var(--cor-terc);
+  color: var(--foreground-sec);
+  font-size: 32px;
+  font-weight: 800;
+  padding: 15px 50px;
+  border-radius: 8px;
+
+  @media only screen and (max-width: 500px) {
+    top: 30px;
+    right: 30px;
+  }
+}

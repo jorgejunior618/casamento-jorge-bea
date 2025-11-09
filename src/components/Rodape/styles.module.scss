@@ -1,0 +1,31 @@
+.Rodape {
+  background-color: var(--cor-secundaria);
+  section {
+    display: flex;
+    flex-direction: column;
+    height: 228px;
+    justify-content: center;
+    align-items: center;
+    color: var(--foreground-sec);
+    gap: 17px;
+    text-align: center;
+
+    span {
+      font-size: 32px;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    section {
+      height: unset;
+      padding: 44px 20px;
+      img {
+        width: 50px !important;
+        height: auto !important;
+      }
+      span {
+        font-size: 24px;
+      }
+    }
+  }
+}
