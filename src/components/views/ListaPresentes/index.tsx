@@ -1,6 +1,5 @@
 "use client";
-import ItemPresente from "@/components/ItemPresente/ItemPresente";
-import listaPresentes from "@/mocks/lista-presentes";
+
 import styles from "./styles.module.scss";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -9,17 +8,22 @@ import VoltarIcon from "@/assets/voltar-icon.svg";
 import ModalConfirmarCompra from "@/components/ModalConfirmarCompra";
 import { useState } from "react";
 import ModalConfirmacao from "@/components/ModalConfirmarcao";
+import Listagem from "./Listagem";
+import { PresenteType } from "@/types/presente";
 
+interface ViewListaPresentesProps {
+  listaPresentes: PresenteType[];
+  estaLogado?: boolean;
+}
 interface DadosModal {
   aberto: boolean;
   presenteID: string;
   comprador: string;
 }
 export default function ViewListaPresentes({
+  listaPresentes,
   estaLogado = false,
-}: {
-  estaLogado?: boolean;
-}) {
+}: ViewListaPresentesProps) {
   const redirecionador = useRouter();
   const [dadosModal, setDadosModal] = useState<DadosModal>({
     aberto: false,
@@ -45,7 +49,7 @@ export default function ViewListaPresentes({
     if (presenteSelecionado === -1)
       return alert("Ocorreu um erro, tente novamente mais tarde");
 
-    listaPresentes[presenteSelecionado] = {
+    [...listaPresentes][presenteSelecionado] = {
       ...listaPresentes[presenteSelecionado],
       confirmado: true,
       comprador: dadosModal.comprador,
@@ -73,18 +77,11 @@ export default function ViewListaPresentes({
           </div>
         </LinkButton>
         <h1 className={styles.TituloLista}>Lista de presentes</h1>
-        <ul className={styles.ListaPresentes}>
-          {listaPresentes
-            .filter((presente) => (estaLogado ? true : !presente.confirmado))
-            .map((presente, idx) => (
-              <ItemPresente
-                key={idx}
-                presente={presente}
-                estaLogado={estaLogado}
-                adicionarComprador={abrirModalConfirmacao}
-              />
-            ))}
-        </ul>
+        <Listagem
+          listaPresentes={listaPresentes}
+          abrirModalConfirmacao={abrirModalConfirmacao}
+          estaLogado={estaLogado}
+        />
       </div>
       <ModalConfirmarCompra
         aberto={dadosModal.aberto}
