@@ -15,7 +15,7 @@ export async function proxy(req: NextRequest) {
   const ehRotaPublica = rotasPublicas.includes(pathname);
 
   if (req.nextUrl.pathname === "/") {
-    return NextResponse.redirect(new URL("/lista-de-presentes", req.url));
+    return NextResponse.redirect(new URL("/sobre-o-casamento", req.url));
   }
   if (!ehRotaPublica && !estaLogado) {
     return NextResponse.redirect(new URL("/sobre-o-casamento", req.url));
