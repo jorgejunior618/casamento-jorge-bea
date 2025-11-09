@@ -1,6 +1,14 @@
 "use server";
 
 import { PresenteType } from "@/types/presente";
+import {
+  collection,
+  doc,
+  getDocs,
+  getDoc,
+  addDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "@/firebase";
 
 interface ResponseType<T> {
@@ -14,7 +22,8 @@ export const listarPresentes = async (): Promise<
   ResponseType<PresenteType[] | string>
 > => {
   try {
-    const presentesSnapshot = await db.collection("presentes").get();
+    const presentesRef = collection(db, "presentes");
+    const presentesSnapshot = await getDocs(presentesRef);
     const presentes: PresenteType[] = [];
 
     presentesSnapshot.forEach((doc) => {
@@ -42,7 +51,8 @@ export const encontrarPresente = async (
   presenteID: string
 ): Promise<ResponseType<PresenteType | string>> => {
   try {
-    const presenteDoc = await db.collection("presentes").doc(presenteID).get();
+    const presenteRef = doc(db, "presentes", presenteID);
+    const presenteDoc = await getDoc(presenteRef);
 
     if (!presenteDoc.exists) {
       return {
@@ -71,8 +81,11 @@ export const encontrarPresente = async (
 
 export const cadastrarPresente = async (form: Omit<PresenteType, "id">) => {
   try {
-    const presenteRef = await db.collection("presentes").add(form);
-    await presenteRef.update({ id: presenteRef.id });
+    const presentesCollectionRef = collection(db, "presentes");
+
+    const presenteRef = await addDoc(presentesCollectionRef, form);
+
+    await updateDoc(presenteRef, { id: presenteRef.id });
     return {
       success: true,
       message: "Presente cadastrado com sucesso",
@@ -94,10 +107,9 @@ export const editarPresente = async (params: {
   const { presente, presenteID } = params;
 
   try {
-    await db
-      .collection("presentes")
-      .doc(presenteID)
-      .update({ ...presente, id: presenteID });
+    const presenteDocRef = doc(db, "presentes", presenteID);
+
+    await updateDoc(presenteDocRef, { ...presente }); // O 'presente' aqui deve conter os campos a serem atualizados
 
     return {
       success: true,
