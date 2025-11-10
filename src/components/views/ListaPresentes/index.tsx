@@ -13,6 +13,7 @@ import { PresenteType } from "@/types/presente";
 import { editarPresente } from "@/servicos/presentes";
 import ModalSucesso from "@/components/ModalSucesso";
 import ModalErro from "@/components/ModalErro";
+import ModalEncaminhamento from "@/components/ModalEncaminhamento";
 
 interface ViewListaPresentesProps {
   listaPresentes: PresenteType[];
@@ -41,9 +42,22 @@ export default function ViewListaPresentes({
     useState<boolean>(false);
   const [modalSucessoAberto, setModalSucesso] = useState<boolean>(false);
   const [modalErroAberto, setModalErro] = useState<boolean>(false);
+  const [modalEncaminhamento, setModalEncaminhamento] = useState<{
+    aberto: boolean;
+    url?: string | null;
+  }>({
+    aberto: false,
+    url: null,
+  });
 
   const abrirModalConfirmacao = (presenteID: string) => {
     setDadosModal({ aberto: true, loading: false, presenteID, comprador: "" });
+  };
+  const abrirModalEncaminhamento = (url?: string | null) => {
+    setModalEncaminhamento({ aberto: true, url });
+  };
+  const fecharModalEncaminhamento = () => {
+    setModalEncaminhamento({ aberto: false, url: null });
   };
 
   const perguntarConfirmacao = (presenteID: string, comprador: string) => {
@@ -102,6 +116,7 @@ export default function ViewListaPresentes({
         <Listagem
           listaPresentes={listaPresentes}
           abrirModalConfirmacao={abrirModalConfirmacao}
+          abrirModalEncaminhamento={abrirModalEncaminhamento}
           estaLogado={estaLogado}
         />
       </div>
@@ -115,6 +130,11 @@ export default function ViewListaPresentes({
         aberto={modalConfirmacaoAberto}
         confirmar={confirmarConfirmacao}
         cancelar={voltarConfirmacao}
+      />
+      <ModalEncaminhamento
+        aberto={modalEncaminhamento.aberto}
+        url={modalEncaminhamento.url}
+        fechar={fecharModalEncaminhamento}
       />
       <ModalSucesso aberto={modalSucessoAberto} />
       <ModalErro aberto={modalErroAberto} />

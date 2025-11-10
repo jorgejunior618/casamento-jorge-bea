@@ -5,22 +5,20 @@ import Image from "next/image";
 import EditIcon from "@/assets/pen-mark.svg";
 import Link from "next/link";
 import LinkButton from "@/components/LinkButton";
-import { useCallback } from "react";
 
 interface ItemPresenteProps {
   estaLogado?: boolean;
   presente: PresenteType;
   adicionarComprador: (presenteID: string) => void;
+  abrirModalEncaminhamento: (url?: string | null) => void;
 }
 
 export default function ItemPresente({
   presente,
   estaLogado = false,
   adicionarComprador,
+  abrirModalEncaminhamento,
 }: ItemPresenteProps) {
-  const verPresente = useCallback(() => {
-    if (presente.url) window.open(presente.url, "_blank");
-  }, [presente]);
   return (
     <div
       className={`${styles.ItemWrapper} ${
@@ -44,7 +42,10 @@ export default function ItemPresente({
       )}
       <span>{presente.item}</span>
 
-      <LinkButton onClick={verPresente} width={230}>
+      <LinkButton
+        onClick={() => abrirModalEncaminhamento(presente.url)}
+        width={230}
+      >
         {presente.url ? "Comprar presente" : "Compre em uma loja"}
       </LinkButton>
       <LinkButton

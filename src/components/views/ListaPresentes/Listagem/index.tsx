@@ -6,12 +6,14 @@ import styles from "./styles.module.scss";
 interface ListagemProps {
   listaPresentes: PresenteType[];
   abrirModalConfirmacao: (presenteID: string) => void;
+  abrirModalEncaminhamento: (url?: string | null) => void;
   estaLogado?: boolean;
 }
 
 export default function Listagem({
   listaPresentes,
   abrirModalConfirmacao,
+  abrirModalEncaminhamento,
   estaLogado,
 }: ListagemProps) {
   return (
@@ -22,6 +24,7 @@ export default function Listagem({
           presente={presente}
           estaLogado={estaLogado}
           adicionarComprador={abrirModalConfirmacao}
+          abrirModalEncaminhamento={abrirModalEncaminhamento}
         />
       ))}
     </ul>
