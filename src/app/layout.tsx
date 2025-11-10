@@ -12,10 +12,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const baseUrl = "https://casamento-jorge-bea.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Casamento de Jorge e Beatriz",
+  title: "Jorge & Beatriz - Chá de casa nova",
   description:
-    "Site com a lista de presentes para o casamento de Anna Beatriz e Jorge Júnior",
+    "Informações do casal, do cha de casa nova e como ajudá-los nessa nova jornada",
+  openGraph: {
+    title: "Jorge & Beatriz - Chá de casa nova",
+    description:
+      "Informações do casal, do chá de casa nova e como ajudá-los nessa nova jornada",
+    url: baseUrl,
+    siteName: "Jorge & Beatriz - Chá de casa nova",
+    images: [
+      {
+        url: "/image/casal-mini.png",
+        width: 1200,
+        height: 630,
+        alt: "Jorge & Beatriz - Chá de casa nova",
+      },
+    ],
+    locale: "pt_BR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
