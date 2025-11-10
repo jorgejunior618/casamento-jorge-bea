@@ -40,6 +40,7 @@ export default function ViewListaPresentes({
   });
   const [modalConfirmacaoAberto, setConfirmacaoAberto] =
     useState<boolean>(false);
+  const [emLista, setEmLista] = useState(false);
   const [modalSucessoAberto, setModalSucesso] = useState<boolean>(false);
   const [modalErroAberto, setModalErro] = useState<boolean>(false);
   const [modalEncaminhamento, setModalEncaminhamento] = useState<{
@@ -113,11 +114,33 @@ export default function ViewListaPresentes({
           </div>
         </LinkButton>
         <h1 className={styles.TituloLista}>Lista de presentes</h1>
+        {estaLogado && (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "160px 1fr",
+              width: "180px",
+              marginBottom: "40px",
+            }}
+          >
+            <label htmlFor="emLista" style={{ flex: 1 }}>
+              Visualização em lista:{" "}
+            </label>
+            <input
+              type="checkbox"
+              name="emLista"
+              id="emLista"
+              checked={emLista}
+              onChange={(e) => setEmLista(e.target.checked)}
+            />
+          </div>
+        )}
         <Listagem
           listaPresentes={listaPresentes}
           abrirModalConfirmacao={abrirModalConfirmacao}
           abrirModalEncaminhamento={abrirModalEncaminhamento}
           estaLogado={estaLogado}
+          emLista={emLista}
         />
       </div>
       <ModalConfirmarCompra

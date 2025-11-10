@@ -8,6 +8,7 @@ interface ListagemProps {
   abrirModalConfirmacao: (presenteID: string) => void;
   abrirModalEncaminhamento: (url?: string | null) => void;
   estaLogado?: boolean;
+  emLista?: boolean;
 }
 
 export default function Listagem({
@@ -15,9 +16,10 @@ export default function Listagem({
   abrirModalConfirmacao,
   abrirModalEncaminhamento,
   estaLogado,
+  emLista,
 }: ListagemProps) {
   return (
-    <ul className={styles.ListaPresentes}>
+    <ul className={`${styles.ListaPresentes} ${emLista ? styles.emLista : ""}`}>
       {listaPresentes.map((presente, idx) => (
         <ItemPresente
           key={idx}
@@ -25,6 +27,7 @@ export default function Listagem({
           estaLogado={estaLogado}
           adicionarComprador={abrirModalConfirmacao}
           abrirModalEncaminhamento={abrirModalEncaminhamento}
+          emLista={emLista}
         />
       ))}
     </ul>

@@ -7,15 +7,17 @@ import Link from "next/link";
 import LinkButton from "@/components/LinkButton";
 
 interface ItemPresenteProps {
-  estaLogado?: boolean;
   presente: PresenteType;
   adicionarComprador: (presenteID: string) => void;
   abrirModalEncaminhamento: (url?: string | null) => void;
+  estaLogado?: boolean;
+  emLista?: boolean;
 }
 
 export default function ItemPresente({
   presente,
   estaLogado = false,
+  emLista = false,
   adicionarComprador,
   abrirModalEncaminhamento,
 }: ItemPresenteProps) {
@@ -23,7 +25,7 @@ export default function ItemPresente({
     <div
       className={`${styles.ItemWrapper} ${
         estaLogado && presente.confirmado ? styles.comprado : ""
-      }`}
+      } ${emLista ? styles.emLista : ""}`}
     >
       <Image
         className={styles.ImageStyled}
@@ -44,20 +46,26 @@ export default function ItemPresente({
 
       <LinkButton
         onClick={() => abrirModalEncaminhamento(presente.url)}
-        width={230}
+        width={emLista ? 100 : 230}
       >
-        {presente.url ? "Comprar presente" : "Compre em uma loja"}
+        {estaLogado
+          ? "Ver"
+          : presente.url
+          ? "Comprar presente"
+          : "Compre em uma loja"}
       </LinkButton>
       <LinkButton
         onClick={() => adicionarComprador(presente.id)}
-        width={230}
+        width={emLista ? 260 : 230}
         type="cancelamento"
       >
         {
           estaLogado
             ? presente.confirmado
-              ? `"${presente.comprador}" já comprou!\nDeseja cancelar?`
-              : 'Marcar como "Comprado"'
+              ? emLista
+                ? presente.comprador
+                : `"${presente.comprador}" já comprou!\nDeseja cancelar?`
+              : "Marcar Comprador"
             : "Já comprei este para o casal"
           /* Confirmar que derei este presente */
         }

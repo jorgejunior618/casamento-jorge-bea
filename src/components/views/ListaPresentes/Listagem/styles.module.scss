@@ -6,6 +6,11 @@
   row-gap: 46px;
   justify-content: center;
 
+  &.emLista {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+
   @media only screen and (max-width: 1080px) {
     grid-template-columns: 1fr 1fr;
   }
