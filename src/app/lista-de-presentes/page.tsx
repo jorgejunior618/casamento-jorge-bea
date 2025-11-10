@@ -1,5 +1,6 @@
 import Rodape from "@/components/Rodape";
 import ViewListaPresentes from "@/components/views/ListaPresentes";
+import Duvidas from "@/components/views/Sobre/Duvidas";
 
 import { listarPresentes } from "@/servicos/presentes";
 import { PresenteType } from "@/types/presente";
@@ -31,6 +32,7 @@ export default async function ListaPresentes() {
         listaPresentes={listaPresentes}
         atualizarLista={atualizarLista}
       />
+      <Duvidas />
       <Rodape />
     </>
   );
