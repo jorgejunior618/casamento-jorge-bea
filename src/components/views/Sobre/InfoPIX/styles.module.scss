@@ -1,6 +1,6 @@
 .InfoPIX {
   background-color: var(--cor-secundaria);
-  height: 721px;
+  // height: 721px;
   display: flex;
   align-items: center;
 
@@ -43,6 +43,7 @@
   }
 
   @media only screen and (max-width: 1080px) {
+    height: 400px;
     section {
       padding: 0 28px;
       height: 265px;
@@ -72,7 +73,7 @@
       }
     }
   }
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 800px) {
     height: unset;
 
     section {
